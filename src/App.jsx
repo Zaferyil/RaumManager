@@ -239,7 +239,12 @@ export default function RaumPlanApp() {
           {/* Logo */}
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-2xl flex items-center justify-center shadow-lg">
-              <span className="text-2xl sm:text-3xl">🏢</span>
+              <svg className="w-6 h-6 sm:w-8 sm:h-8" viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="4" width="18" height="16" rx="2" stroke="#14b8a6" strokeWidth="2"/>
+                <path d="M3 9h18" stroke="#14b8a6" strokeWidth="2"/>
+                <rect x="7" y="12" width="3" height="3" rx="0.5" fill="#14b8a6"/>
+                <rect x="14" y="12" width="3" height="3" rx="0.5" fill="#14b8a6"/>
+              </svg>
             </div>
             <div>
               <div className="text-white font-black text-xl sm:text-2xl md:text-3xl tracking-tight">
