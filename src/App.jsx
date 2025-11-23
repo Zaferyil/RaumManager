@@ -56,6 +56,37 @@ export default function RaumPlanApp() {
                       'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
   const dayNames = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
 
+  // German month abbreviations for date parsing
+  const monthAbbreviations = {
+    'Jan': 0, 'Feb': 1, 'Mär': 2, 'Apr': 3, 'Mai': 4, 'Jun': 5,
+    'Jul': 6, 'Aug': 7, 'Sep': 8, 'Okt': 9, 'Nov': 10, 'Dez': 11
+  };
+
+  // Parse German date string to Date object
+  const parseGermanDate = (dateStr, timeStr = '00:00') => {
+    if (!dateStr) return new Date(0);
+
+    // Format: "14. Nov. 2025"
+    const match = dateStr.match(/(\d+)\.\s*(\w+)\.?\s*(\d+)/);
+    if (!match) return new Date(0);
+
+    const day = parseInt(match[1]);
+    const monthAbbr = match[2].substring(0, 3);
+    const year = parseInt(match[3]);
+    const month = monthAbbreviations[monthAbbr] ?? 0;
+
+    const [hours, minutes] = timeStr.split(':').map(Number);
+
+    return new Date(year, month, day, hours || 0, minutes || 0);
+  };
+
+  // Sort bookings by date chronologically
+  const sortedBookings = [...bookings].sort((a, b) => {
+    const dateA = parseGermanDate(a.startDate, a.startTime);
+    const dateB = parseGermanDate(b.startDate, b.startTime);
+    return dateA - dateB;
+  });
+
   const getDaysInMonth = (date) => {
     const year = date.getFullYear();
     const month = date.getMonth();
@@ -301,7 +332,7 @@ export default function RaumPlanApp() {
           </div>
         ) : (
           <div className="space-y-3 sm:space-y-4">
-            {bookings.map((booking) => (
+            {sortedBookings.map((booking) => (
               <article
                 key={booking.id}
                 className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border-2 border-teal-100"
