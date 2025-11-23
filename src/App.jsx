@@ -57,21 +57,32 @@ export default function RaumPlanApp() {
   const dayNames = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
 
   // German month abbreviations for date parsing (including Austrian variants)
+  // Supports both with and without umlauts, case-insensitive
   const monthAbbreviations = {
-    'Jan': 0, 'Jän': 0, 'Feb': 1, 'Mär': 2, 'Apr': 3, 'Mai': 4, 'Jun': 5,
-    'Jul': 6, 'Aug': 7, 'Sep': 8, 'Okt': 9, 'Nov': 10, 'Dez': 11
+    'jan': 0, 'jän': 0,
+    'feb': 1,
+    'mär': 2, 'mar': 2,
+    'apr': 3,
+    'mai': 4,
+    'jun': 5,
+    'jul': 6,
+    'aug': 7,
+    'sep': 8,
+    'okt': 9,
+    'nov': 10,
+    'dez': 11
   };
 
   // Parse German date string to Date object
   const parseGermanDate = (dateStr, timeStr = '00:00') => {
     if (!dateStr) return new Date(0);
 
-    // Format: "14. Nov. 2025"
-    const match = dateStr.match(/(\d+)\.\s*(\w+)\.?\s*(\d+)/);
+    // Format: "14. Nov. 2025" or "14. März 2025"
+    const match = dateStr.match(/(\d+)\.\s*([a-zA-ZäöüÄÖÜß]+)\.?\s*(\d+)/);
     if (!match) return new Date(0);
 
     const day = parseInt(match[1]);
-    const monthAbbr = match[2].substring(0, 3);
+    const monthAbbr = match[2].substring(0, 3).toLowerCase();
     const year = parseInt(match[3]);
     const month = monthAbbreviations[monthAbbr] ?? 0;
 
