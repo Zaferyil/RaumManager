@@ -56,9 +56,9 @@ export default function RaumPlanApp() {
                       'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
   const dayNames = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
 
-  // German month abbreviations for date parsing
+  // German month abbreviations for date parsing (including Austrian variants)
   const monthAbbreviations = {
-    'Jan': 0, 'Feb': 1, 'Mär': 2, 'Apr': 3, 'Mai': 4, 'Jun': 5,
+    'Jan': 0, 'Jän': 0, 'Feb': 1, 'Mär': 2, 'Apr': 3, 'Mai': 4, 'Jun': 5,
     'Jul': 6, 'Aug': 7, 'Sep': 8, 'Okt': 9, 'Nov': 10, 'Dez': 11
   };
 
